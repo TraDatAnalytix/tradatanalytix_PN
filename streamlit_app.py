@@ -112,7 +112,7 @@ def page2():
         from_date = datetime.now() - timedelta(days = 720)
 
         df = breeze.get_historical_data(interval="1day",
-                                    from_date= from_date.strftime('2020-04-01T09:20:00.000Z'),
+                                    from_date= from_date.strftime('%Y-%m-%dT09:20:00.000Z'),
                                     to_date= now.strftime('%Y-%m-%dT15:25:00.000Z'),
                                     stock_code=sym12,
                                     exchange_code="NSE",
