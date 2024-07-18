@@ -91,7 +91,7 @@ def page2():
 
         #st.title("Post Budget - Trading Strategy")
         # horizontal menu
-        selected2 = option_menu("Select Index", ["Nifty", "Bank Nifty"],
+        market_index_select = option_menu("Select Index", ["Nifty", "Bank Nifty"],
         icons=['collection', 'bank2'],
         menu_icon="graph-up-arrow", default_index=0, orientation = "horizontal")
 
@@ -136,7 +136,7 @@ def page2():
 
         nifty_prices.columns = ns
 
-        st.write(nifty_prices)
+        #st.write(nifty_prices)
 
         stock_data_close = nifty_prices[["Close"]]
 
@@ -161,57 +161,57 @@ def page2():
         # Predict 90 days into the future
         forecast = model.predict(
             start=test_df.index[0],
-            end=test_df.index[-1] + dt.timedelta(days=90),
+            end=test_df.index[-1] + dt.timedelta(days=10),
             dynamic=True,
         )
 
 
 
+        if market_index_select == "Nifty":
+            # Check if the data is not None
+            if train_df is not None and (forecast >= 0).all() and (predictions >= 0).all():
+                # Add a title to the stock prediction graph
+                st.markdown("## **Stock Prediction**")
 
-        # Check if the data is not None
-        if train_df is not None and (forecast >= 0).all() and (predictions >= 0).all():
-            # Add a title to the stock prediction graph
-            st.markdown("## **Stock Prediction**")
+                # Create a plot for the stock prediction
+                fig = go.Figure(
+                    data=[
+                        go.Scatter(
+                            x=train_df.index,
+                            y=train_df["Close"],
+                            name="Train",
+                            mode="lines",
+                            line=dict(color="blue"),
+                        ),
+                        go.Scatter(
+                            x=test_df.index,
+                            y=test_df["Close"],
+                            name="Test",
+                            mode="lines",
+                            line=dict(color="orange"),
+                        ),
+                        go.Scatter(
+                            x=forecast.index,
+                            y=forecast,
+                            name="Forecast",
+                            mode="lines",
+                            line=dict(color="red"),
+                        ),
+                        go.Scatter(
+                            x=test_df.index,
+                            y=predictions,
+                            name="Test Predictions",
+                            mode="lines",
+                            line=dict(color="green"),
+                        ),
+                    ]
+                )
 
-            # Create a plot for the stock prediction
-            fig = go.Figure(
-                data=[
-                    go.Scatter(
-                        x=train_df.index,
-                        y=train_df["Close"],
-                        name="Train",
-                        mode="lines",
-                        line=dict(color="blue"),
-                    ),
-                    go.Scatter(
-                        x=test_df.index,
-                        y=test_df["Close"],
-                        name="Test",
-                        mode="lines",
-                        line=dict(color="orange"),
-                    ),
-                    go.Scatter(
-                        x=forecast.index,
-                        y=forecast,
-                        name="Forecast",
-                        mode="lines",
-                        line=dict(color="red"),
-                    ),
-                    go.Scatter(
-                        x=test_df.index,
-                        y=predictions,
-                        name="Test Predictions",
-                        mode="lines",
-                        line=dict(color="green"),
-                    ),
-                ]
-            )
+                # Customize the stock prediction graph
+                fig.update_layout(xaxis_rangeslider_visible=False)
 
-            # Customize the stock prediction graph
-            fig.update_layout(xaxis_rangeslider_visible=False)
-
-            # Use the native streamlit theme.
-            st.plotly_chart(fig, use_container_width=True)
+                # Use the native streamlit theme.
+                st.plotly_chart(fig, use_container_width=True)
 
         # If the data is None
         else:
