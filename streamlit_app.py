@@ -105,7 +105,7 @@ def page2():
 
 
         nifty = []
-        ns = ['sym12']
+        ns = ['Close']
 
         now = datetime.now() - timedelta(days = 1)
         from_date = datetime.now() - timedelta(days = 1825)
@@ -137,7 +137,7 @@ def page2():
 
         st.write(nifty_prices)
 
-        stock_data_close = nifty_prices[["NIFTY"]]
+        stock_data_close = nifty_prices[["Close"]]
 
         # Change frequency to day
         stock_data_close = stock_data_close.asfreq("D", method="ffill")
