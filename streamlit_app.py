@@ -8,7 +8,6 @@ import numpy as np
 import time
 from PIL import Image
 from streamlit_option_menu import option_menu
-import pyfolio as pf
 #####
 
 # Site Icon
