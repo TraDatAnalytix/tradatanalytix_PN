@@ -5,7 +5,6 @@ import datetime
 import pandas as pd
 from datetime import date, time, datetime, timedelta
 import numpy as np
-import plotly.express as px
 import time
 from PIL import Image
 from streamlit_option_menu import option_menu
