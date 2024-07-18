@@ -109,7 +109,7 @@ def page2():
         ns = ['Close']
 
         now = datetime.now() - timedelta(days = 1)
-        from_date = datetime.now() - timedelta(days = 1825)
+        from_date = datetime.now() - timedelta(days = 720)
 
         df = breeze.get_historical_data(interval="1day",
                                     from_date= from_date.strftime('2020-04-01T09:20:00.000Z'),
