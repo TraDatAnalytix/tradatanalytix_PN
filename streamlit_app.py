@@ -8,6 +8,9 @@ import numpy as np
 import time
 from PIL import Image
 from streamlit_option_menu import option_menu
+from statsmodels.tsa.ar_model import AutoReg
+import plotly.graph_objects as go
+
 #####
 
 # Site Icon
@@ -102,7 +105,7 @@ def page2():
 
 
         nifty = []
-        ns = [sym12]
+        ns = "close"
 
         now = datetime.now() - timedelta(days = 1)
         from_date = datetime.now() - timedelta(days = 1825)
@@ -132,16 +135,88 @@ def page2():
 
         nifty_prices.columns = ns
 
-        st.write('Below is a DataFrame:', nifty_prices, 'Above is a dataframe.')
+        stock_data_close = nifty_prices[["close"]]
+
+        # Change frequency to day
+        stock_data_close = stock_data_close.asfreq("D", method="ffill")
+
+        # Fill missing values
+        stock_data_close = stock_data_close.ffill()
+
+        # Define training and testing area
+        train_df = stock_data_close.iloc[: int(len(stock_data_close) * 0.9) + 1]  # 90%
+        test_df = stock_data_close.iloc[int(len(stock_data_close) * 0.9) :]  # 10%
+
+        # Define training model
+        model = AutoReg(train_df["Close"], 250).fit(cov_type="HC0")
+
+        # Predict data for test data
+        predictions = model.predict(
+            start=test_df.index[0], end=test_df.index[-1], dynamic=True
+        )
+
+        # Predict 90 days into the future
+        forecast = model.predict(
+            start=test_df.index[0],
+            end=test_df.index[-1] + dt.timedelta(days=90),
+            dynamic=True,
+        )
 
 
-        nifty_prices['returns'] = nifty_prices['NIFTY'].pct_change()
-        nifty_prices.index = pd.to_datetime(nifty_prices.index)
 
-        returns = nifty_prices['returns'].dropna()
 
-        # Check the type
-        print(type(returns))
+        # Check if the data is not None
+        if train_df is not None and (forecast >= 0).all() and (predictions >= 0).all():
+            # Add a title to the stock prediction graph
+            st.markdown("## **Stock Prediction**")
+
+            # Create a plot for the stock prediction
+            fig = go.Figure(
+                data=[
+                    go.Scatter(
+                        x=train_df.index,
+                        y=train_df["Close"],
+                        name="Train",
+                        mode="lines",
+                        line=dict(color="blue"),
+                    ),
+                    go.Scatter(
+                        x=test_df.index,
+                        y=test_df["Close"],
+                        name="Test",
+                        mode="lines",
+                        line=dict(color="orange"),
+                    ),
+                    go.Scatter(
+                        x=forecast.index,
+                        y=forecast,
+                        name="Forecast",
+                        mode="lines",
+                        line=dict(color="red"),
+                    ),
+                    go.Scatter(
+                        x=test_df.index,
+                        y=predictions,
+                        name="Test Predictions",
+                        mode="lines",
+                        line=dict(color="green"),
+                    ),
+                ]
+            )
+
+            # Customize the stock prediction graph
+            fig.update_layout(xaxis_rangeslider_visible=False)
+
+            # Use the native streamlit theme.
+            st.plotly_chart(fig, use_container_width=True)
+
+        # If the data is None
+        else:
+            # Add a title to the stock prediction graph
+            st.markdown("## **Stock Prediction**")
+
+            # Add a message to the stock prediction graph
+            st.markdown("### **No data available for the selected stock**")
 
 
 pg = st.navigation([
