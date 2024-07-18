@@ -91,7 +91,7 @@ def page2():
 
         #st.title("Post Budget - Trading Strategy")
         # horizontal menu
-        selected2 = option_menu(Select Index, ["Nifty", "Bank Nifty"],
+        selected2 = option_menu("Select Index", ["Nifty", "Bank Nifty"],
         icons=['collection', 'bank2'],
         menu_icon="graph-up-arrow", default_index=0, orientation = "horizontal")
 
