@@ -1,1 +1,3 @@
 breeze-connect
+streamlit-option-menu
+streamlit_chat

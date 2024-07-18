@@ -1,4 +1,0 @@
-breeze-connect
-streamlit
-streamlit-option-menu
-streamlit_chat
