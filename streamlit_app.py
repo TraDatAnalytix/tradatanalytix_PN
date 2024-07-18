@@ -135,6 +135,8 @@ def page2():
 
         nifty_prices.columns = ns
 
+        st.write(nifty_prices)
+
         stock_data_close = nifty_prices[["NIFTY"]]
 
         # Change frequency to day
