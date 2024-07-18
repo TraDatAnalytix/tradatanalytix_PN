@@ -151,7 +151,7 @@ def page2():
         test_df = stock_data_close.iloc[int(len(stock_data_close) * 0.9) :]  # 10%
 
         # Define training model
-        model = AutoReg(train_df["Close"], 20).fit(cov_type="HC0")
+        model = AutoReg(train_df["Close"], 180).fit(cov_type="HC0")
 
         # Predict data for test data
         predictions = model.predict(
