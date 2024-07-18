@@ -15,6 +15,24 @@ logo_top = Image.open("./tradatanalytix logo.png")
 st.set_page_config(page_title = 'TraDatAnalytix',layout='wide', page_icon=logo_top)
 
 
+
+
+api_key="16G_Mh68829o5105pg1646!O09d2fm43"
+#response = 'https://api.icicidirect.com/apiuser/login?api_key='+str(api_key)
+#webbrowser.open(response,new=1)
+
+#session_key = st.number_input(label = "Enter Credential", format="%0f")
+session_key = 44494017
+      # Initialize SDK
+breeze = BreezeConnect(api_key="16G_Mh68829o5105pg1646!O09d2fm43")
+      # Generate Session
+breeze.generate_session(api_secret="6759%V7C09Acs(3567164*J00x@06`)3",
+                            session_token=session_key)
+
+
+
+
+
 ####### ICICI Direct Breeze API connection
 #43768426
 
@@ -148,17 +166,3 @@ pg.run()
 #     menu_icon = "cast",
 #     default_index = 0
 #   )
-
-
-
-api_key="16G_Mh68829o5105pg1646!O09d2fm43"
-#response = 'https://api.icicidirect.com/apiuser/login?api_key='+str(api_key)
-#webbrowser.open(response,new=1)
-
-#session_key = st.number_input(label = "Enter Credential", format="%0f")
-session_key = 44444755
-      # Initialize SDK
-breeze = BreezeConnect(api_key="16G_Mh68829o5105pg1646!O09d2fm43")
-      # Generate Session
-breeze.generate_session(api_secret="6759%V7C09Acs(3567164*J00x@06`)3",
-                            session_token=session_key)
