@@ -135,7 +135,8 @@ def portfolio_analytics():
 
         stock_select = lc.container(height = 130).multiselect("Select Stocks", df_symbol_list , ['IDFC', 'SBIN'])
         uploaded_file = rc.container(height = 130).file_uploader("Upload your portfolio holdings CSV file", type=["csv"])
-        st.write("You selected:", stock_select)
+        df_sel = pd.DataFrame(stock_select, columns=['SYMBOL'])
+        st.write("You selected:", df_sel)
 
     if selected_option == 'Indices Data':
 
