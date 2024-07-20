@@ -55,8 +55,8 @@ def portfolio_analytics():
     # Create a file uploader widget
       uploaded_file = st.file_uploader("Upload your portfolio holdings CSV file", type=["csv"])
       selected_option = option_menu(
-        "Portfolio Insights",
-        ['Portfolio Statistics', 'ML Optimiser (Efficient Frontier)', 'Techno-Funda Insights'],
+        "Portfolio Analytics",
+        ['Statistics', 'M/L Optimiser', 'Techno-Funda Insights'],
         icons = ['bar-chart-fill', 'gear', 'currency-exchange'],
         menu_icon = "cast",
         default_index = 0
