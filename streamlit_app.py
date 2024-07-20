@@ -134,7 +134,7 @@ def portfolio_analytics():
         #list_test = ['ADAGAS' ,'HDFCBANK', 'ICICI']
 
         stock_select = lc.container(height = 130).multiselect("Select Stocks", df_symbol_list , ['IDFC', 'SBIN'])
-        uploaded_file = rc.container(height = 130).file_uploader("Upload your portfolio holdings CSV file", type=["csv"])
+        uploaded_file = rc.container(height = 130).file_uploader("(OR) Upload your portfolio holdings CSV file", type=["csv"])
         df_sel = pd.DataFrame(stock_select, columns=['SYMBOL'])
         df_sel2 = pd.merge(df_sel, eq_base, left_on='SYMBOL', right_on=' "ExchangeCode"', how='inner')
         df_sel3 = df_sel2[[' "ShortName"']].iloc[0:, 0].tolist()
