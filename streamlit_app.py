@@ -26,7 +26,14 @@ api_key="16G_Mh68829o5105pg1646!O09d2fm43"
 #webbrowser.open(response,new=1)
 
 #session_key = st.number_input(label = "Enter Credential", format="%0f")
-session_key = 44494017
+
+# Input numeric value
+numeric_value = st.number_input('Enter a numeric value:', value=0.0)
+
+# Remove decimal points
+session_key = int(numeric_value)
+
+#session_key = 44494017
       # Initialize SDK
 breeze = BreezeConnect(api_key="16G_Mh68829o5105pg1646!O09d2fm43")
       # Generate Session
@@ -44,7 +51,7 @@ breeze.generate_session(api_secret="6759%V7C09Acs(3567164*J00x@06`)3",
 
 
 
-def page1():
+def portfolio_analytics():
     st.title("Portfolio Analytics")
 
 
@@ -73,7 +80,7 @@ def page1():
 
 
 
-def page2():
+def market_insights():
     st.title("Second page")
 
     with st.sidebar:
