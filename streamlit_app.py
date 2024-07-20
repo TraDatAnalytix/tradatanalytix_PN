@@ -133,9 +133,9 @@ def portfolio_analytics():
         """<style>
         div [data-baseweb=select]  {
             max-height: 300px;
-            overflow: auto;
-        <style>"""    
-        })
+            overflow: auto; }
+        <style>"""
+        )
         #st.write(df_nf500_list)
         #list_test = ['ADAGAS' ,'HDFCBANK', 'ICICI']
         stock_select = lc.multiselect("Select Stocks", df_symbol_list , ['IDFC', 'SBIN'])
