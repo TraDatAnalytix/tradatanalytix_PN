@@ -93,7 +93,7 @@ master = df[[' "ShortName"',' "Symbol"',' "Series"', ' "CompanyName"', ' "Exchan
 eq_base = master[master[' "Series"'] == "EQ"]
 
 #nifty500 = pd.read_csv("NIFTYNEXT50.csv")
-nifty500 = pd.read_csv("NIFTYNEXT50.csv")
+nifty500 = pd.read_csv("NIFTY500_1.csv")
 
 df_nf500 = pd.merge(nifty500, eq_base, left_on='SYMBOL', right_on=' "ExchangeCode"', how='inner')
 
@@ -128,7 +128,7 @@ def portfolio_analytics():
 
 
     if selected_option == 'Statistics':
-        st.write(df_nf500_list)  
+        st.write(df_nf500_list)
 
     if selected_option == 'Indices Data':
 
