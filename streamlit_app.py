@@ -56,8 +56,8 @@ def portfolio_analytics():
       uploaded_file = st.file_uploader("Upload your portfolio holdings CSV file", type=["csv"])
       selected_option = option_menu(
         "Portfolio Insights",
-        ['Authentication','Global Markets','Indices Data','Open Interest Data', 'FII/DII Data','Pick Outperformers' ,'Trading Strategy'],
-        icons = ['globe', 'globe','body-text','bar-chart-fill', 'gear', 'currency-exchange' ,'option'],
+        ['Portfolio Statistics', 'ML Optimiser (Efficient Frontier)', 'Techno-Funda Insights'],
+        icons = ['bar-chart-fill', 'gear', 'currency-exchange'],
         menu_icon = "cast",
         default_index = 0
       )
