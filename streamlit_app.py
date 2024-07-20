@@ -98,7 +98,7 @@ nifty500 = pd.read_csv("NIFTY500_1.csv")
 df_nf500 = pd.merge(nifty500, eq_base, left_on='SYMBOL', right_on=' "ExchangeCode"', how='inner')
 
 df_nf500_list = df_nf500[[' "ShortName"']]
-df_symbol_list = df_nf500[['SYMBOL']]
+df_symbol_list = df_nf500[['SYMBOL']].iloc[1:, 0].tolist()
 
 symbolList = df_nf500_list.iloc[1:, 0].tolist()
 
@@ -130,6 +130,7 @@ def portfolio_analytics():
 
     if selected_option == 'Statistics':
         st.write(df_nf500_list)
+        stock_select = st.multiselect("Select Stocks", df_symbol_list, ['ADAGAS' ,'HDFCBANK'])
 
     if selected_option == 'Indices Data':
 
