@@ -27,7 +27,7 @@ api_key="16G_Mh68829o5105pg1646!O09d2fm43"
 
 #session_key = st.number_input(label = "Enter Credential", format="%0f")
 
-session_key = 44578490
+session_key = 44581296
       # Initialize SDK
 
 
@@ -129,7 +129,13 @@ def portfolio_analytics():
 
 
     if selected_option == 'Statistics':
-
+        st.markdown(
+        """<style>
+        div [data-baseweb=select]  {
+            max-height: 300px;
+            overflow: auto; }
+        <style>""", unsafe_allow_html=True
+        )
         #st.write(df_nf500_list)
         #list_test = ['ADAGAS' ,'HDFCBANK', 'ICICI']
         stock_select = lc.multiselect("Select Stocks", df_symbol_list , ['IDFC', 'SBIN'])
