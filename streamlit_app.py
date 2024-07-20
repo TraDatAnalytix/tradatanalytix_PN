@@ -27,20 +27,14 @@ api_key="16G_Mh68829o5105pg1646!O09d2fm43"
 
 #session_key = st.number_input(label = "Enter Credential", format="%0f")
 
-# Input numeric value
-numeric_value = st.number_input('Enter a numeric value:', value=0.0)
-
-# Remove decimal points
-session_key = int(numeric_value)
-
-#session_key = 44494017
+session_key = 44578490
       # Initialize SDK
 
-if session_key > 0:
-    breeze = BreezeConnect(api_key="16G_Mh68829o5105pg1646!O09d2fm43")
-          # Generate Session
-    breeze.generate_session(api_secret="6759%V7C09Acs(3567164*J00x@06`)3",
-                                session_token=session_key)
+
+breeze = BreezeConnect(api_key="16G_Mh68829o5105pg1646!O09d2fm43")
+      # Generate Session
+breeze.generate_session(api_secret="6759%V7C09Acs(3567164*J00x@06`)3",
+                            session_token=session_key)
 
 
 
@@ -232,8 +226,8 @@ def market_insights():
 
 
 pg = st.navigation([
-    st.Page(page1, title="Portfolio Analytics", icon=":material/shopping_basket:"),
-    st.Page(page2, title="Market Analytics", icon=":material/price_change:"),
+    st.Page(portfolio_analytics, title="Portfolio Analytics", icon=":material/shopping_basket:"),
+    st.Page(market_insights, title="Market Analytics", icon=":material/price_change:"),
 ])
 pg.run()
 
