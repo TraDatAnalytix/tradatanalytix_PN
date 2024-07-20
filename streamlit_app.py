@@ -37,7 +37,70 @@ breeze.generate_session(api_secret="6759%V7C09Acs(3567164*J00x@06`)3",
                             session_token=session_key)
 
 
+import requests
+from io import BytesIO
+import zipfile
+import os
 
+def extract_text_from_zip(url, file_name):
+    # Fetch the zip file content from the URL
+    response = requests.get(url)
+
+    # Check if the request was successful
+    if response.status_code == 200:
+        # Read the content of the zip file
+        zip_data = BytesIO(response.content)
+
+        # Create a ZipFile object from the bytes
+        zip_file = zipfile.ZipFile(zip_data)
+
+        # Extract the text file you want
+        with zip_file.open(file_name) as txt_file:
+            # Read the content of the text file
+            text_content = txt_file.read()
+
+            # Decode the content (assuming it's UTF-8 encoded)
+            decoded_content = text_content.decode('utf-8')
+
+            return decoded_content
+    else:
+        print("Failed to fetch the zip file.")
+
+# Example usage
+url = "https://directlink.icicidirect.com/NewSecurityMaster/SecurityMaster.zip"  # Replace with your actual URL
+file_name = "NSEScripMaster.txt"  # Replace with the name of the text file you want to extract
+
+text_content = extract_text_from_zip(url, file_name)
+#print(text_content)
+
+
+import pandas as pd
+from io import StringIO
+
+def string_to_dataframe(data_string):
+    # Convert the string to a file-like object
+    data_file = StringIO(data_string)
+
+    # Read the data into a pandas DataFrame
+    df = pd.read_csv(data_file, delimiter=',')
+
+    return df
+df = string_to_dataframe(text_content)
+#print(df)
+
+master = df[[' "ShortName"',' "Symbol"',' "Series"', ' "CompanyName"', ' "ExchangeCode"']]
+
+eq_base = master[master[' "Series"'] == "EQ"]
+
+#nifty500 = pd.read_csv("NIFTYNEXT50.csv")
+nifty500 = pd.read_csv("NIFTYNEXT50.csv")
+
+df_nf500 = pd.merge(nifty500, eq_base, left_on='SYMBOL', right_on=' "ExchangeCode"', how='inner')
+
+df_nf500_list = df_nf500[[' "ShortName"']]
+
+symbolList = df_nf500_list.iloc[1:, 0].tolist()
+symbolList.sort()
 
 
 ####### ICICI Direct Breeze API connection
@@ -48,6 +111,8 @@ breeze.generate_session(api_secret="6759%V7C09Acs(3567164*J00x@06`)3",
 
 
 def portfolio_analytics():
+
+
     st.title("Portfolio Analytics")
 
 
