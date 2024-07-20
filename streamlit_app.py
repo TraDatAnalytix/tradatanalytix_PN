@@ -100,7 +100,7 @@ df_nf500 = pd.merge(nifty500, eq_base, left_on='SYMBOL', right_on=' "ExchangeCod
 df_nf500_list = df_nf500[[' "ShortName"']]
 
 symbolList = df_nf500_list.iloc[1:, 0].tolist()
-symbolList.sort()
+st.write(symbolList.sort())
 
 
 ####### ICICI Direct Breeze API connection
