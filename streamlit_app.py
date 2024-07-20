@@ -112,13 +112,13 @@ symbolList = df_nf500_list.iloc[1:, 0].tolist()
 
 def portfolio_analytics():
 
-
+    lc, rc = st.columns(2)
     #st.title("Portfolio Analytics")
 
 
     with st.sidebar:
     # Create a file uploader widget
-      uploaded_file = st.file_uploader("Upload your portfolio holdings CSV file", type=["csv"])
+      #uploaded_file = st.file_uploader("Upload your portfolio holdings CSV file", type=["csv"])
       selected_option = option_menu(
         "Select:",
         ['Statistics', 'M/L Optimiser', 'Techno-Funda Insights', 'Strategy'],
@@ -131,7 +131,8 @@ def portfolio_analytics():
     if selected_option == 'Statistics':
         st.write(df_nf500_list)
         #list_test = ['ADAGAS' ,'HDFCBANK', 'ICICI']
-        stock_select = st.multiselect("Select Stocks", df_symbol_list , ['IDFC', 'SBIN'])
+        stock_select = lc.multiselect("Select Stocks", df_symbol_list , ['IDFC', 'SBIN'])
+        uploaded_file = rc.file_uploader("Upload your portfolio holdings CSV file", type=["csv"])
         st.write("You selected:", stock_select)
 
     if selected_option == 'Indices Data':
