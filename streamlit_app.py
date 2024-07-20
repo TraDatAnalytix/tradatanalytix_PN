@@ -98,6 +98,7 @@ nifty500 = pd.read_csv("NIFTY500_1.csv")
 df_nf500 = pd.merge(nifty500, eq_base, left_on='SYMBOL', right_on=' "ExchangeCode"', how='inner')
 
 df_nf500_list = df_nf500[[' "ShortName"']]
+df_symbol_list = df_nf500[['SYMBOL']]
 
 symbolList = df_nf500_list.iloc[1:, 0].tolist()
 
@@ -112,7 +113,7 @@ symbolList = df_nf500_list.iloc[1:, 0].tolist()
 def portfolio_analytics():
 
 
-    st.title("Portfolio Analytics")
+    #st.title("Portfolio Analytics")
 
 
     with st.sidebar:
@@ -120,7 +121,7 @@ def portfolio_analytics():
       uploaded_file = st.file_uploader("Upload your portfolio holdings CSV file", type=["csv"])
       selected_option = option_menu(
         "Select:",
-        ['Statistics', 'M/L Optimiser', 'Techno-Funda Insights'],
+        ['Statistics', 'M/L Optimiser', 'Techno-Funda Insights', 'Strategy'],
         icons = ['bar-chart-fill', 'gear', 'currency-exchange'],
         menu_icon = "cast",
         default_index = 0
