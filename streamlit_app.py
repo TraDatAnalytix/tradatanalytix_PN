@@ -35,10 +35,12 @@ session_key = int(numeric_value)
 
 #session_key = 44494017
       # Initialize SDK
-breeze = BreezeConnect(api_key="16G_Mh68829o5105pg1646!O09d2fm43")
-      # Generate Session
-breeze.generate_session(api_secret="6759%V7C09Acs(3567164*J00x@06`)3",
-                            session_token=session_key)
+
+if session_key > 0:
+    breeze = BreezeConnect(api_key="16G_Mh68829o5105pg1646!O09d2fm43")
+          # Generate Session
+    breeze.generate_session(api_secret="6759%V7C09Acs(3567164*J00x@06`)3",
+                                session_token=session_key)
 
 
 
