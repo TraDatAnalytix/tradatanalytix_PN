@@ -130,8 +130,8 @@ def portfolio_analytics():
 
     if selected_option == 'Statistics':
         st.write(df_nf500_list)
-        list_test = ['ADAGAS' ,'HDFCBANK', 'ICICI']
-        stock_select = st.multiselect("Select Stocks", list_test , list_test)
+        #list_test = ['ADAGAS' ,'HDFCBANK', 'ICICI']
+        stock_select = st.multiselect("Select Stocks", df_symbol_list , df_symbol_list)
 
     if selected_option == 'Indices Data':
 
