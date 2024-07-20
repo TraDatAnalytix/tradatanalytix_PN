@@ -129,7 +129,14 @@ def portfolio_analytics():
 
 
     if selected_option == 'Statistics':
-        st.write(df_nf500_list)
+        st.markdown(
+        """<style>
+        div [data-baseweb=select]  {
+            max-height: 300px;
+            overflow: auto;
+        <style>"""    
+        })
+        #st.write(df_nf500_list)
         #list_test = ['ADAGAS' ,'HDFCBANK', 'ICICI']
         stock_select = lc.multiselect("Select Stocks", df_symbol_list , ['IDFC', 'SBIN'])
         uploaded_file = rc.file_uploader("Upload your portfolio holdings CSV file", type=["csv"])
