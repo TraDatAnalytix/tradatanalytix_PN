@@ -225,7 +225,7 @@ def portfolio_analytics():
             )
 
             # Display the heatmap in Streamlit
-            st.altair_chart(heatmap, use_container_width=True)
+            st.altair_chart(heatmap, use_container_width=True, theme="streamlit")
 
 
 
