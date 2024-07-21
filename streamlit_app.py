@@ -233,7 +233,7 @@ def market_insights():
         data = pd.DataFrame(df['Success'])
 
         # Convert with a specific format
-        data['date_column'] = pd.to_datetime(data['datetime'])
+        data['date_column'] = pd.to_datetime(data['datetime']).dt.strftime('%Y-%m-%d')
         data.set_index('date_column', inplace=True)
         data2 = data["close"].astype(float)
         data2.info()
