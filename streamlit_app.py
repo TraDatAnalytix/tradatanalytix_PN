@@ -156,7 +156,7 @@ def portfolio_analytics():
             df2 = get_stock_data(symbol)
             df3 = pd.merge(df, df2, on = 'date_column', how = 'right')
             df = df3
-        df_final = df.set_index('date_column', inplace=True)
+        df_final = df.set_index('date_column', inplace=False)
         st.write(df_final)
         # extend pandas functionality with metrics, etc.
         #qs.extend_pandas()
