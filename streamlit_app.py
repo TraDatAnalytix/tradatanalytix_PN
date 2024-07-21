@@ -159,8 +159,8 @@ def portfolio_analytics():
             df = df3
         df_final = df
         correlation_matrix = df_final.corr(method='pearson')
-        st.write(correlation_matrix)
-        st.write(df_final)
+        #st.write(correlation_matrix)
+        #st.write(df_final)
         fig1 = plt.figure()
         sns.heatmap(correlation_matrix, xticklabels=correlation_matrix.columns, yticklabels=correlation_matrix.columns,
         cmap='YlGnBu', annot=True, linewidth=0.5)
