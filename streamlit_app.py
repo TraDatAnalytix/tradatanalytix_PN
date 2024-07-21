@@ -105,6 +105,7 @@ symbolList = df_nf500_list.iloc[1:, 0].tolist()
 
 
 def get_stock_data(sym12):
+        nifty = []
         ns = ['Close']
         now = datetime.now() - timedelta(days = 1)
         from_date = datetime.now() - timedelta(days = 720)
@@ -120,8 +121,10 @@ def get_stock_data(sym12):
         data['date_column'] = pd.to_datetime(data['datetime'])
         data.set_index('date_column', inplace=True)
         data2 = data["close"].astype(float)
+        if not data2.empty:
+            nifty.append(data2)
 
-        nifty_prices = pd.concat(data2, axis = 1)
+        nifty_prices = pd.concat(nifty, axis = 1)
         nifty_prices.columns = ns
         stock_data_close = nifty_prices[["Close"]]
         return(nifty_prices)
