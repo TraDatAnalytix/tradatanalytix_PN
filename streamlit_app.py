@@ -216,7 +216,7 @@ def portfolio_analytics():
             heatmap = alt.Chart(corr_long).mark_rect().encode(
                 x=alt.X('Variable:O', title='Variable', axis=alt.Axis(labelAngle=-45)),
                 y=alt.Y('Reference:O', title='Reference'),
-                color=alt.Color('Correlation:Q', scale=alt.Scale(scheme='crest'), title='Correlation'),
+                color=alt.Color('Correlation:Q', scale=alt.Scale(scheme='yellowgreenblue'), title='Correlation'),
                 tooltip=['Reference', 'Variable', 'Correlation']
             ).properties(
                 title='Correlation Matrix Heatmap',
@@ -225,7 +225,7 @@ def portfolio_analytics():
             )
 
             # Display the heatmap in Streamlit
-            st.altair_chart(heatmap, use_container_width=True, theme="streamlit")
+            st.altair_chart(heatmap, use_container_width=True)
 
 
 
