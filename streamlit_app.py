@@ -157,7 +157,9 @@ def portfolio_analytics():
             df3 = pd.merge(df, df2, on = 'date_column', how = 'right')
             df = df3
         df_final = df
-        st.write(df_final.index)
+        correlation_matrix = df_final.corr(method='pearson')
+        st.write(correlation_matrix)
+        st.write(df_final)
         # extend pandas functionality with metrics, etc.
         #qs.extend_pandas()
 
