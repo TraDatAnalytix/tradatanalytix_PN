@@ -153,8 +153,8 @@ def portfolio_analytics():
             stock_select = st.container(height = 130).multiselect("Select Stocks", df_symbol_list , ['IDFC', 'SBIN'])
         else:
             uploaded_file = st.container(height = 130).file_uploader("(OR) Upload your portfolio holdings CSV file", type=["csv"])
-        stock_select = lc.container(height = 130).multiselect("Select Stocks", df_symbol_list , ['IDFC', 'SBIN'])
-        uploaded_file = rc.container(height = 130).file_uploader("(OR) Upload your portfolio holdings CSV file", type=["csv"])
+        #stock_select = lc.container(height = 130).multiselect("Select Stocks", df_symbol_list , ['IDFC', 'SBIN'])
+        #uploaded_file = rc.container(height = 130).file_uploader("(OR) Upload your portfolio holdings CSV file", type=["csv"])
         df_sel = pd.DataFrame(stock_select, columns=['SYMBOL'])
         df_sel2 = pd.merge(df_sel, eq_base, left_on='SYMBOL', right_on=' "ExchangeCode"', how='inner')
         symbolList = df_sel2[[' "ShortName"']].iloc[0:, 0].tolist()
