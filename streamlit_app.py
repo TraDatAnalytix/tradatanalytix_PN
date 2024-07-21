@@ -12,37 +12,32 @@ from streamlit_option_menu import option_menu
 from statsmodels.tsa.ar_model import AutoReg
 import plotly.graph_objects as go
 import quantstats as qs
+import requests
+from io import BytesIO
+import zipfile
+import os
+from io import StringIO
 
-#####
 
+
+# Layout and Logo
 # Site Icon
 logo_top = Image.open("./tradatanalytix logo.png")
 st.set_page_config(page_title = 'TraDatAnalytix',layout='wide', page_icon=logo_top)
 
 
 
-
+# Create ICICI Direct Session for getting Market Data
 api_key="16G_Mh68829o5105pg1646!O09d2fm43"
-#response = 'https://api.icicidirect.com/apiuser/login?api_key='+str(api_key)
-#webbrowser.open(response,new=1)
-
-#session_key = st.number_input(label = "Enter Credential", format="%0f")
 
 session_key = 44581296
-      # Initialize SDK
-
 
 breeze = BreezeConnect(api_key="16G_Mh68829o5105pg1646!O09d2fm43")
-      # Generate Session
 breeze.generate_session(api_secret="6759%V7C09Acs(3567164*J00x@06`)3",
                             session_token=session_key)
 
 
-import requests
-from io import BytesIO
-import zipfile
-import os
-
+# Getting SYMBOL and STOCK codes needed for display and data fetch
 def extract_text_from_zip(url, file_name):
     # Fetch the zip file content from the URL
     response = requests.get(url)
@@ -72,11 +67,7 @@ url = "https://directlink.icicidirect.com/NewSecurityMaster/SecurityMaster.zip" 
 file_name = "NSEScripMaster.txt"  # Replace with the name of the text file you want to extract
 
 text_content = extract_text_from_zip(url, file_name)
-#print(text_content)
 
-
-import pandas as pd
-from io import StringIO
 
 def string_to_dataframe(data_string):
     # Convert the string to a file-like object
@@ -174,13 +165,13 @@ def portfolio_analytics():
             df = df3
         st.write(df)
         # extend pandas functionality with metrics, etc.
-        qs.extend_pandas()
+        #qs.extend_pandas()
 
         # fetch the daily returns for a stock
-        stock = qs.utils.download_returns('META')
+        #stock = qs.utils.download_returns('META')
 
         # show sharpe ratio
-        st.write(qs.stats.sharpe(stock))
+        #st.write(qs.stats.sharpe(stock))
 
     if selected_option == 'Indices Data':
 
