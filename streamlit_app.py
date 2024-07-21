@@ -197,11 +197,9 @@ def portfolio_analytics():
             ax.set_xlabel('Date')
             ax.set_ylabel('Growth of ₨ 1 investment')
             st.pyplot(fig)
-            def format_text(x):
-                return f'{x:.2f}'
-
-            fig = px.imshow(correlation_matrix, text_auto=lambda x: format_text(x), aspect="auto", color_continuous_scale='Viridis')
-            st.plotly_chart(fig)
+            
+            # fig = px.imshow(correlation_matrix, text_auto=True, aspect="auto", color_continuous_scale='Viridis')
+            # st.plotly_chart(fig)
 
         else:
             uploaded_file = st.container(height = 130).file_uploader("(OR) Upload your portfolio holdings CSV file", type=["csv"])
