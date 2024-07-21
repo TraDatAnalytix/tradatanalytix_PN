@@ -207,7 +207,7 @@ def portfolio_analytics():
 
             # Compute the correlation matrix
             corr_matrix = data.corr()
-
+            st.write(corr_matrix)
             # Convert the correlation matrix to long format
             corr_long = corr_matrix.reset_index().melt(id_vars='index', var_name='Variable', value_name='Correlation')
             corr_long = corr_long.rename(columns={'index': 'Reference'})
