@@ -151,36 +151,62 @@ def portfolio_analytics():
 
         if genre == "Select Manually":
             stock_select = st.container(height = 130).multiselect("Select Stocks", df_symbol_list , ['IDFC', 'SBIN'])
+            df_sel = pd.DataFrame(stock_select, columns=['SYMBOL'])
+            df_sel2 = pd.merge(df_sel, eq_base, left_on='SYMBOL', right_on=' "ExchangeCode"', how='inner')
+            symbolList = df_sel2[[' "ShortName"']].iloc[0:, 0].tolist()
+            #df = pd.DataFrame(columns=['date_column', 'Close'])
+            df = get_stock_data("NIFTY")
+            for symbol in symbolList:
+                df2 = get_stock_data(symbol)
+                df3 = pd.merge(df, df2, on = 'date_column', how = 'right')
+                df = df3
+            df_final = df
+            correlation_matrix = df_final.corr(method='pearson')
+            #st.write(correlation_matrix)
+            #st.write(df_final)
+            fig1 = plt.figure()
+            sns.heatmap(correlation_matrix, xticklabels=correlation_matrix.columns, yticklabels=correlation_matrix.columns,
+            cmap='YlGnBu', annot=True, linewidth=0.5)
+            print('Correlation between Stocks in your portfolio')
+            lc.pyplot(fig1)
+
+            daily_simple_return = df_final.pct_change(1)
+            daily_simple_return.dropna(inplace=True)
+
+            fig2, ax2 = plt.subplots(figsize = (10,5))
+            daily_simple_return.plot(kind = "box",ax = ax2, title = "Risk Box Plot")
+            rc.pyplot(fig2)
+
         else:
             uploaded_file = st.container(height = 130).file_uploader("(OR) Upload your portfolio holdings CSV file", type=["csv"])
-        #stock_select = lc.container(height = 130).multiselect("Select Stocks", df_symbol_list , ['IDFC', 'SBIN'])
-        #uploaded_file = rc.container(height = 130).file_uploader("(OR) Upload your portfolio holdings CSV file", type=["csv"])
-        df_sel = pd.DataFrame(stock_select, columns=['SYMBOL'])
-        df_sel2 = pd.merge(df_sel, eq_base, left_on='SYMBOL', right_on=' "ExchangeCode"', how='inner')
-        symbolList = df_sel2[[' "ShortName"']].iloc[0:, 0].tolist()
-        #df = pd.DataFrame(columns=['date_column', 'Close'])
-        df = get_stock_data("NIFTY")
-        for symbol in symbolList:
-            df2 = get_stock_data(symbol)
-            df3 = pd.merge(df, df2, on = 'date_column', how = 'right')
-            df = df3
-        df_final = df
-        correlation_matrix = df_final.corr(method='pearson')
-        #st.write(correlation_matrix)
-        #st.write(df_final)
-        fig1 = plt.figure()
-        sns.heatmap(correlation_matrix, xticklabels=correlation_matrix.columns, yticklabels=correlation_matrix.columns,
-        cmap='YlGnBu', annot=True, linewidth=0.5)
-        print('Correlation between Stocks in your portfolio')
-        lc.pyplot(fig1)
-
-        daily_simple_return = df_final.pct_change(1)
-        daily_simple_return.dropna(inplace=True)
-
-        fig2, ax2 = plt.subplots(figsize = (10,5))
-        daily_simple_return.plot(kind = "box",ax = ax2, title = "Risk Box Plot")
-        rc.pyplot(fig2)
-
+        # #stock_select = lc.container(height = 130).multiselect("Select Stocks", df_symbol_list , ['IDFC', 'SBIN'])
+        # #uploaded_file = rc.container(height = 130).file_uploader("(OR) Upload your portfolio holdings CSV file", type=["csv"])
+        # df_sel = pd.DataFrame(stock_select, columns=['SYMBOL'])
+        # df_sel2 = pd.merge(df_sel, eq_base, left_on='SYMBOL', right_on=' "ExchangeCode"', how='inner')
+        # symbolList = df_sel2[[' "ShortName"']].iloc[0:, 0].tolist()
+        # #df = pd.DataFrame(columns=['date_column', 'Close'])
+        # df = get_stock_data("NIFTY")
+        # for symbol in symbolList:
+        #     df2 = get_stock_data(symbol)
+        #     df3 = pd.merge(df, df2, on = 'date_column', how = 'right')
+        #     df = df3
+        # df_final = df
+        # correlation_matrix = df_final.corr(method='pearson')
+        # #st.write(correlation_matrix)
+        # #st.write(df_final)
+        # fig1 = plt.figure()
+        # sns.heatmap(correlation_matrix, xticklabels=correlation_matrix.columns, yticklabels=correlation_matrix.columns,
+        # cmap='YlGnBu', annot=True, linewidth=0.5)
+        # print('Correlation between Stocks in your portfolio')
+        # lc.pyplot(fig1)
+        #
+        # daily_simple_return = df_final.pct_change(1)
+        # daily_simple_return.dropna(inplace=True)
+        #
+        # fig2, ax2 = plt.subplots(figsize = (10,5))
+        # daily_simple_return.plot(kind = "box",ax = ax2, title = "Risk Box Plot")
+        # rc.pyplot(fig2)
+        #
 
         # extend pandas functionality with metrics, etc.
         #qs.extend_pandas()
