@@ -183,7 +183,6 @@ def portfolio_analytics():
 
 
             daily_cummulative_simple_return =(daily_simple_return+1).cumprod()
-            daily_cummulative_simple_return
 
             #visualize the daily cummulative simple return
             print('Cummulative Returns')
