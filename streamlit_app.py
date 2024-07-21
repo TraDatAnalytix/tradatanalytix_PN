@@ -166,10 +166,11 @@ def portfolio_analytics():
         df_sel2 = pd.merge(df_sel, eq_base, left_on='SYMBOL', right_on=' "ExchangeCode"', how='inner')
         symbolList = df_sel2[[' "ShortName"']].iloc[0:, 0].tolist()
         df = pd.DataFrame(columns=['date_column', 'Close'])
+        st.write(df)
         for symbol in symbolList:
             df2 = get_stock_data(symbol)
             st.write(df2)
-            df3 = pd.merge(df, df2, on = 'date_column')
+            df3 = pd.merge(df, df2, on = 'date_column', how = 'right')
             st.write(df3)
             df = df3
         st.write(df)
