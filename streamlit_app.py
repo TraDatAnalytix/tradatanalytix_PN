@@ -19,6 +19,7 @@ import os
 from io import StringIO
 import seaborn as sns
 import matplotlib.pyplot as plt
+import plotly.express as px
 
 
 # Layout and Logo
