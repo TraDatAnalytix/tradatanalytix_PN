@@ -11,6 +11,7 @@ from PIL import Image
 from streamlit_option_menu import option_menu
 from statsmodels.tsa.ar_model import AutoReg
 import plotly.graph_objects as go
+import quantstats as qs
 
 #####
 
