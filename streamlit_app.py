@@ -169,7 +169,8 @@ def portfolio_analytics():
 
         daily_simple_return = df_final.pct_change(1)
         daily_simple_return.dropna(inplace=True)
-        fig2, ax2 = plt.subplots(figsize = (20,10))
+
+        fig2, ax2 = plt.subplots(figsize = (50,25))
         daily_simple_return.plot(kind = "box",ax = ax2, title = "Risk Box Plot")
         rc.pyplot(fig2)
 
