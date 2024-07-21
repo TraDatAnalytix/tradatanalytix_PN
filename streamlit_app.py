@@ -165,13 +165,13 @@ def portfolio_analytics():
         sns.heatmap(correlation_matrix, xticklabels=correlation_matrix.columns, yticklabels=correlation_matrix.columns,
         cmap='YlGnBu', annot=True, linewidth=0.5)
         print('Correlation between Stocks in your portfolio')
-        st.pyplot(fig1)
+        lc.pyplot(fig1)
 
         daily_simple_return = df_final.pct_change(1)
         daily_simple_return.dropna(inplace=True)
         fig2, ax2 = plt.subplots(figsize = (20,10))
         daily_simple_return.plot(kind = "box",ax = ax2, title = "Risk Box Plot")
-        st.pyplot(fig2)
+        rc.pyplot(fig2)
 
 
         # extend pandas functionality with metrics, etc.
