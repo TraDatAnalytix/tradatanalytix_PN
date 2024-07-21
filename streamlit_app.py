@@ -20,6 +20,7 @@ from io import StringIO
 import seaborn as sns
 import matplotlib.pyplot as plt
 import plotly.express as px
+import altair as alt
 
 
 # Layout and Logo
@@ -197,7 +198,37 @@ def portfolio_analytics():
             ax.set_xlabel('Date')
             ax.set_ylabel('Growth of ₨ 1 investment')
             st.pyplot(fig)
-            
+
+
+
+            # Example data: create a DataFrame with random data
+            np.random.seed(0)
+            data = pd.DataFrame(np.random.rand(10, 5), columns=['A', 'B', 'C', 'D', 'E'])
+
+            # Compute the correlation matrix
+            corr_matrix = data.corr()
+
+            # Convert the correlation matrix to long format
+            corr_long = corr_matrix.reset_index().melt(id_vars='index', var_name='Variable', value_name='Correlation')
+            corr_long = corr_long.rename(columns={'index': 'Reference'})
+
+            # Create the heatmap using Altair
+            heatmap = alt.Chart(corr_long).mark_rect().encode(
+                x=alt.X('Variable:O', title='Variable', axis=alt.Axis(labelAngle=-45)),
+                y=alt.Y('Reference:O', title='Reference'),
+                color=alt.Color('Correlation:Q', scale=alt.Scale(scheme='viridis'), title='Correlation'),
+                tooltip=['Reference', 'Variable', 'Correlation']
+            ).properties(
+                title='Correlation Matrix Heatmap',
+                width=400,
+                height=400
+            )
+
+            # Display the heatmap in Streamlit
+            st.altair_chart(heatmap, use_container_width=True)
+
+
+
             # fig = px.imshow(correlation_matrix, text_auto=True, aspect="auto", color_continuous_scale='Viridis')
             # st.plotly_chart(fig)
 
