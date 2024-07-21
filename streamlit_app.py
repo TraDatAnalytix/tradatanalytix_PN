@@ -164,7 +164,6 @@ def portfolio_analytics():
         df_sel = pd.DataFrame(stock_select, columns=['SYMBOL'])
         df_sel2 = pd.merge(df_sel, eq_base, left_on='SYMBOL', right_on=' "ExchangeCode"', how='inner')
         symbolList = df_sel2[[' "ShortName"']].iloc[0:, 0].tolist()
-        st.write("You selected:", df_sel3)
         for symbol in symbolList:
             df = get_stock_data(symbol)
             st.write(df)
