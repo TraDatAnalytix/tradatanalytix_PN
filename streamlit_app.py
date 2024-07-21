@@ -169,9 +169,7 @@ def portfolio_analytics():
         st.write(df)
         for symbol in symbolList:
             df2 = get_stock_data(symbol)
-            st.write(df2)
             df3 = pd.merge(df, df2, on = 'date_column', how = 'right')
-            st.write(df3)
             df = df3
         st.write(df)
 
