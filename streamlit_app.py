@@ -197,6 +197,9 @@ def portfolio_analytics():
             ax.set_ylabel('Growth of ₨ 1 investment')
             st.pyplot(fig)
 
+            fig = px.imshow(correlation_matrix, text_auto=True, aspect="auto")
+            st.plotly_chart(fig)
+
         else:
             uploaded_file = st.container(height = 130).file_uploader("(OR) Upload your portfolio holdings CSV file", type=["csv"])
         # #stock_select = lc.container(height = 130).multiselect("Select Stocks", df_symbol_list , ['IDFC', 'SBIN'])
