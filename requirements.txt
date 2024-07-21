@@ -4,3 +4,4 @@ streamlit_chat
 statsmodels==0.14.2
 plotly==5.21.0
 QuantStats
+ipython
