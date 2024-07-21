@@ -165,7 +165,7 @@ def portfolio_analytics():
         sns.heatmap(correlation_matrix, xticklabels=correlation_matrix.columns, yticklabels=correlation_matrix.columns,
         cmap='YlGnBu', annot=True, linewidth=0.5)
         print('Correlation between Stocks in your portfolio')
-        plt.show(fig1)
+        st.pyplot(fig1)
         # extend pandas functionality with metrics, etc.
         #qs.extend_pandas()
 
