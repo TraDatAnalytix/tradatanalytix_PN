@@ -216,19 +216,22 @@ def portfolio_analytics():
             heatmap = alt.Chart(corr_long).mark_rect().encode(
                 x=alt.X('Variable:O', title='Variable', axis=alt.Axis(labelAngle=-45)),
                 y=alt.Y('Reference:O', title='Reference'),
-                color=alt.Color('Correlation:Q', scale=alt.Scale(scheme='yellowgreenblue'), title='Correlation'),
+                color=alt.Color('Correlation:Q', scale=alt.Scale(scheme='viridis'), title='Correlation'),
                 tooltip=['Reference', 'Variable', 'Correlation']
-            ).properties(
-                title='Correlation Matrix Heatmap',
-                width=400,
-                height=400
             )
 
-            # Display the heatmap in Streamlit
-            st.altair_chart(heatmap, use_container_width=True)
+            # Create text annotations
+            text = alt.Chart(corr_long).mark_text(baseline='middle', color='black').encode(
+                x=alt.X('Variable:O', title='Variable'),
+                y=alt.Y('Reference:O', title='Reference'),
+                text=alt.Text('Correlation:Q', format='.2f')
+            )
 
+            # Combine the heatmap and text layers
+            combined = heatmap + text
 
-
+            # Display the combined heatmap and annotations in Streamlit
+            st.altair_chart(combined, use_container_width=True)
             # fig = px.imshow(correlation_matrix, text_auto=True, aspect="auto", color_continuous_scale='Viridis')
             # st.plotly_chart(fig)
 
