@@ -145,7 +145,14 @@ def portfolio_analytics():
 
     if selected_option == 'Statistics':
 
+        genre = st.radio(
+            "Upload your Stock Portfolio:",
+            ["Select Manually", "Upload CSV"], horizontal = True)
 
+        if genre == "Select Manually":
+            stock_select = st.container(height = 130).multiselect("Select Stocks", df_symbol_list , ['IDFC', 'SBIN'])
+        else:
+            uploaded_file = st.container(height = 130).file_uploader("(OR) Upload your portfolio holdings CSV file", type=["csv"])
         stock_select = lc.container(height = 130).multiselect("Select Stocks", df_symbol_list , ['IDFC', 'SBIN'])
         uploaded_file = rc.container(height = 130).file_uploader("(OR) Upload your portfolio holdings CSV file", type=["csv"])
         df_sel = pd.DataFrame(stock_select, columns=['SYMBOL'])
