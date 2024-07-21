@@ -130,7 +130,7 @@ def get_stock_data(sym12):
 
 def portfolio_analytics():
 
-    lc, rc = st.columns(2)
+    #lc, rc = st.columns(2)
 
 
     with st.sidebar:
@@ -151,6 +151,9 @@ def portfolio_analytics():
 
         if genre == "Select Manually":
             stock_select = st.container(height = 130).multiselect("Select Stocks", df_symbol_list , ['IDFC', 'SBIN'])
+
+
+            lc, rc = st.columns(2)
             df_sel = pd.DataFrame(stock_select, columns=['SYMBOL'])
             df_sel2 = pd.merge(df_sel, eq_base, left_on='SYMBOL', right_on=' "ExchangeCode"', how='inner')
             symbolList = df_sel2[[' "ShortName"']].iloc[0:, 0].tolist()
@@ -168,14 +171,14 @@ def portfolio_analytics():
             sns.heatmap(correlation_matrix, xticklabels=correlation_matrix.columns, yticklabels=correlation_matrix.columns,
             cmap='YlGnBu', annot=True, linewidth=0.5)
             print('Correlation between Stocks in your portfolio')
-            st.pyplot(fig1)
+            lc.pyplot(fig1)
 
             daily_simple_return = df_final.pct_change(1)
             daily_simple_return.dropna(inplace=True)
 
             fig2, ax2 = plt.subplots(figsize = (10,5))
             daily_simple_return.plot(kind = "box",ax = ax2, title = "Risk Box Plot")
-            st.pyplot(fig2)
+            rc.pyplot(fig2)
 
         else:
             uploaded_file = st.container(height = 130).file_uploader("(OR) Upload your portfolio holdings CSV file", type=["csv"])
