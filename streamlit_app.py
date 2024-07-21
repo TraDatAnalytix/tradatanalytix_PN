@@ -165,8 +165,11 @@ def portfolio_analytics():
         df_sel = pd.DataFrame(stock_select, columns=['SYMBOL'])
         df_sel2 = pd.merge(df_sel, eq_base, left_on='SYMBOL', right_on=' "ExchangeCode"', how='inner')
         symbolList = df_sel2[[' "ShortName"']].iloc[0:, 0].tolist()
+        df = pd.DataFrame()
         for symbol in symbolList:
-            df = get_stock_data(symbol)
+            df2 = get_stock_data(symbol)
+            df3 = pd.merge(df, df2, on = 'date_column')
+            df = df3
             st.write(df)
 
     if selected_option == 'Indices Data':
