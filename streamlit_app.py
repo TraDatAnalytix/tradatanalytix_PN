@@ -173,6 +173,14 @@ def portfolio_analytics():
             df3 = pd.merge(df, df2, on = 'date_column', how = 'right')
             df = df3
         st.write(df)
+        # extend pandas functionality with metrics, etc.
+        qs.extend_pandas()
+
+        # fetch the daily returns for a stock
+        stock = qs.utils.download_returns('META')
+
+        # show sharpe ratio
+        st.write(qs.stats.sharpe(stock))
 
     if selected_option == 'Indices Data':
 
