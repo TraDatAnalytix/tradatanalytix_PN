@@ -166,6 +166,14 @@ def portfolio_analytics():
         cmap='YlGnBu', annot=True, linewidth=0.5)
         print('Correlation between Stocks in your portfolio')
         st.pyplot(fig1)
+
+        daily_simple_return = df_final.pct_change(1)
+        daily_simple_return.dropna(inplace=True)
+        fig2 = plt.figure()
+        daily_simple_return.plot(kind = "box",figsize = (20,10), title = "Risk Box Plot")
+        st.pyplot(fig2)
+
+
         # extend pandas functionality with metrics, etc.
         #qs.extend_pandas()
 
