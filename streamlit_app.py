@@ -106,7 +106,7 @@ symbolList = df_nf500_list.iloc[1:, 0].tolist()
 
 def get_stock_data(sym12):
         nifty = []
-        ns = ['Close']
+        ns = [sym12]
         now = datetime.now() - timedelta(days = 1)
         from_date = datetime.now() - timedelta(days = 720)
         df = breeze.get_historical_data(interval="1day",
