@@ -120,7 +120,7 @@ def get_stock_data(sym12):
         # Convert with a specific format
         data['date_column'] = pd.to_datetime(data['datetime']).dt.strftime('%Y-%m-%d')
         data.set_index('date_column', inplace=True)
-        data2 = data[sym12].astype(float)
+        data2 = data["close"].astype(float)
         if not data2.empty:
             nifty.append(data2)
 
