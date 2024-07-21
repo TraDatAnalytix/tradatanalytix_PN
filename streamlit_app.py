@@ -17,6 +17,7 @@ from io import BytesIO
 import zipfile
 import os
 from io import StringIO
+import seaborn as sns
 
 
 
@@ -160,6 +161,11 @@ def portfolio_analytics():
         correlation_matrix = df_final.corr(method='pearson')
         st.write(correlation_matrix)
         st.write(df_final)
+        fig1 = plt.figure()
+        sns.heatmap(correlation_matrix, xticklabels=correlation_matrix.columns, yticklabels=correlation_matrix.columns,
+        cmap='YlGnBu', annot=True, linewidth=0.5)
+        print('Correlation between Stocks in your portfolio')
+        plt.show(fig1)
         # extend pandas functionality with metrics, etc.
         #qs.extend_pandas()
 
