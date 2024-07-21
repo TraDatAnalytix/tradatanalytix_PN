@@ -121,9 +121,7 @@ def get_stock_data(sym12):
         data.set_index('date_column', inplace=True)
         data2 = data["close"].astype(float)
 
-        if not data2.empty:
-            nifty.append(data2)
-        nifty_prices = pd.concat(nifty, axis = 1)
+        nifty_prices = pd.concat(data2, axis = 1)
         nifty_prices.columns = ns
         stock_data_close = nifty_prices[["Close"]]
         return(nifty_prices)
