@@ -103,6 +103,32 @@ df_symbol_list = df_nf500[['SYMBOL']].iloc[1:, 0].tolist()
 symbolList = df_nf500_list.iloc[1:, 0].tolist()
 
 
+
+def get_stock_data(sym12):
+        ns = ['Close']
+        now = datetime.now() - timedelta(days = 1)
+        from_date = datetime.now() - timedelta(days = 720)
+        df = breeze.get_historical_data(interval="1day",
+                                    from_date= from_date.strftime('%Y-%m-%dT09:20:00.000Z'),
+                                    to_date= now.strftime('%Y-%m-%dT15:25:00.000Z'),
+                                    stock_code=sym12,
+                                    exchange_code="NSE",
+                                    product_type="cash")
+        data = pd.DataFrame(df['Success'])
+
+        # Convert with a specific format
+        data['date_column'] = pd.to_datetime(data['datetime'])
+        data.set_index('date_column', inplace=True)
+        data2 = data["close"].astype(float)
+
+        if not data2.empty:
+            nifty.append(data2)
+        nifty_prices = pd.concat(nifty, axis = 1)
+        nifty_prices.columns = ns
+        stock_data_close = nifty_prices[["Close"]]
+        return(nifty_prices)
+
+
 ####### ICICI Direct Breeze API connection
 #43768426
 
@@ -137,9 +163,11 @@ def portfolio_analytics():
         uploaded_file = rc.container(height = 130).file_uploader("(OR) Upload your portfolio holdings CSV file", type=["csv"])
         df_sel = pd.DataFrame(stock_select, columns=['SYMBOL'])
         df_sel2 = pd.merge(df_sel, eq_base, left_on='SYMBOL', right_on=' "ExchangeCode"', how='inner')
-        df_sel3 = df_sel2[[' "ShortName"']].iloc[0:, 0].tolist()
-
+        symbolList = df_sel2[[' "ShortName"']].iloc[0:, 0].tolist()
         st.write("You selected:", df_sel3)
+        for symbol in symbolList:
+            df = get_stock_data(symbol)
+            st.write(df)
 
     if selected_option == 'Indices Data':
 
