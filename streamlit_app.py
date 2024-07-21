@@ -180,6 +180,24 @@ def portfolio_analytics():
             daily_simple_return.plot(kind = "box",ax = ax2, title = "Risk Box Plot")
             rc.pyplot(fig2)
 
+
+
+            daily_cummulative_simple_return =(daily_simple_return+1).cumprod()
+            daily_cummulative_simple_return
+
+            #visualize the daily cummulative simple return
+            print('Cummulative Returns')
+            fig, ax = plt.subplots(figsize=(18,8))
+
+            for i in daily_cummulative_simple_return.columns.values :
+                ax.plot(daily_cummulative_simple_return[i], lw =2 ,label = i)
+
+            ax.legend( loc = 'upper left' , fontsize =10)
+            ax.set_title('Daily Cummulative Simple returns/growth of investment')
+            ax.set_xlabel('Date')
+            ax.set_ylabel('Growth of ₨ 1 investment')
+            st.pyplot(fig)
+
         else:
             uploaded_file = st.container(height = 130).file_uploader("(OR) Upload your portfolio holdings CSV file", type=["csv"])
         # #stock_select = lc.container(height = 130).multiselect("Select Stocks", df_symbol_list , ['IDFC', 'SBIN'])
