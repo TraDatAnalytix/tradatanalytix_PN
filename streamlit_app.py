@@ -216,7 +216,7 @@ def portfolio_analytics():
             heatmap = alt.Chart(corr_long).mark_rect().encode(
                 x=alt.X('Variable:O', title='Variable', axis=alt.Axis(labelAngle=-45)),
                 y=alt.Y('Reference:O', title='Reference'),
-                color=alt.Color('Correlation:Q', scale=alt.Scale(scheme='viridis'), title='Correlation'),
+                color=alt.Color('Correlation:Q', scale=alt.Scale(scheme='crest'), title='Correlation'),
                 tooltip=['Reference', 'Variable', 'Correlation']
             ).properties(
                 title='Correlation Matrix Heatmap',
