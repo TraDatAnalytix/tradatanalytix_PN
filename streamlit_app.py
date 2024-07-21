@@ -168,9 +168,11 @@ def portfolio_analytics():
         df = pd.DataFrame(columns=['date_column', 'SYMBOL'])
         for symbol in symbolList:
             df2 = get_stock_data(symbol)
+            st.write(df2)
             df3 = pd.merge(df, df2, on = 'date_column')
+            st.write(df3)
             df = df3
-            st.write(df)
+        st.write(df)
 
     if selected_option == 'Indices Data':
 
