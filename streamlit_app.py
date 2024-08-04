@@ -33,7 +33,7 @@ st.set_page_config(page_title = 'TraDatAnalytix',layout='wide', page_icon=logo_t
 # Create ICICI Direct Session for getting Market Data
 api_key="16G_Mh68829o5105pg1646!O09d2fm43"
 
-session_key = 44581296
+session_key = 45392219
 
 breeze = BreezeConnect(api_key="16G_Mh68829o5105pg1646!O09d2fm43")
 breeze.generate_session(api_secret="6759%V7C09Acs(3567164*J00x@06`)3",
