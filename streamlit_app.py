@@ -135,6 +135,9 @@ def portfolio_analytics():
     #lc, rc = st.columns(2)
 
 
+
+
+
     with st.sidebar:
       selected_option = option_menu(
         "Select:",
@@ -143,6 +146,10 @@ def portfolio_analytics():
         menu_icon = "cast",
         default_index = 0
       )
+
+    if selected_option == 'Techno-Funda Insights':
+        st.write("code it")
+
 
 
     if selected_option == 'Statistics':
@@ -166,72 +173,47 @@ def portfolio_analytics():
                 df3 = pd.merge(df, df2, on = 'date_column', how = 'right')
                 df = df3
             df_final = df
-            correlation_matrix = df_final.corr(method='pearson')
-            #st.write(correlation_matrix)
-            #st.write(df_final)
-            fig1 = plt.figure()
-            sns.heatmap(correlation_matrix, xticklabels=correlation_matrix.columns, yticklabels=correlation_matrix.columns,
-            cmap='YlGnBu', annot=True, linewidth=0.5)
-            print('Correlation between Stocks in your portfolio')
-            lc.pyplot(fig1)
-
-            daily_simple_return = df_final.pct_change(1)
-            daily_simple_return.dropna(inplace=True)
-
-            fig2, ax2 = plt.subplots(figsize = (10,5))
-            daily_simple_return.plot(kind = "box",ax = ax2, title = "Risk Box Plot")
-            rc.pyplot(fig2)
-
-
-
-            daily_cummulative_simple_return =(daily_simple_return+1).cumprod()
-
-            #visualize the daily cummulative simple return
-            print('Cummulative Returns')
-            fig, ax = plt.subplots(figsize=(18,8))
-
-            for i in daily_cummulative_simple_return.columns.values :
-                ax.plot(daily_cummulative_simple_return[i], lw =2 ,label = i)
-
-            ax.legend( loc = 'upper left' , fontsize =10)
-            ax.set_title('Daily Cummulative Simple returns/growth of investment')
-            ax.set_xlabel('Date')
-            ax.set_ylabel('Growth of ₨ 1 investment')
-            st.pyplot(fig)
-
-
-
-            # Example data: create a DataFrame with random data
-            np.random.seed(0)
-            data = pd.DataFrame(np.random.rand(10, 5), columns=['A', 'B', 'C', 'D', 'E'])
-
-            # Compute the correlation matrix
-            corr_matrix = data.corr()
-            st.write(corr_matrix)
-            # Convert the correlation matrix to long format
-            corr_long = corr_matrix.reset_index().melt(id_vars='index', var_name='Variable', value_name='Correlation')
-            corr_long = corr_long.rename(columns={'index': 'Reference'})
-
-            # Create the heatmap using Altair
-            heatmap = alt.Chart(corr_long).mark_rect().encode(
-                x=alt.X('Variable:O', title='Variable', axis=alt.Axis(labelAngle=-45)),
-                y=alt.Y('Reference:O', title='Reference'),
-                color=alt.Color('Correlation:Q', scale=alt.Scale(scheme='viridis'), title='Correlation'),
-                tooltip=['Reference', 'Variable', 'Correlation']
-            )
-
-            # Create text annotations
-            text = alt.Chart(corr_long).mark_text(baseline='middle', color='black').encode(
-                x=alt.X('Variable:O', title='Variable'),
-                y=alt.Y('Reference:O', title='Reference'),
-                text=alt.Text('Correlation:Q', format='.2f')
-            )
+            st.write(df_final)
+            # correlation_matrix = df_final.corr(method='pearson')
+            # #st.write(correlation_matrix)
+            # #st.write(df_final)
+            # fig1 = plt.figure()
+            # sns.heatmap(correlation_matrix, xticklabels=correlation_matrix.columns, yticklabels=correlation_matrix.columns,
+            # cmap='YlGnBu', annot=True, linewidth=0.5)
+            # print('Correlation between Stocks in your portfolio')
+            # lc.pyplot(fig1)
+            #
+            # daily_simple_return = df_final.pct_change(1)
+            # daily_simple_return.dropna(inplace=True)
+            #
+            # fig2, ax2 = plt.subplots(figsize = (10,5))
+            # daily_simple_return.plot(kind = "box",ax = ax2, title = "Risk Box Plot")
+            # rc.pyplot(fig2)
+            #
+            #
+            #
+            # daily_cummulative_simple_return =(daily_simple_return+1).cumprod()
+            #
+            # #visualize the daily cummulative simple return
+            # print('Cummulative Returns')
+            # fig, ax = plt.subplots(figsize=(18,8))
+            #
+            # for i in daily_cummulative_simple_return.columns.values :
+            #     ax.plot(daily_cummulative_simple_return[i], lw =2 ,label = i)
+            #
+            # ax.legend( loc = 'upper left' , fontsize =10)
+            # ax.set_title('Daily Cummulative Simple returns/growth of investment')
+            # ax.set_xlabel('Date')
+            # ax.set_ylabel('Growth of ₨ 1 investment')
+            # st.pyplot(fig)
+            #
+            #
 
             # Combine the heatmap and text layers
-            combined = heatmap + text
+            #combined = heatmap + text
 
             # Display the combined heatmap and annotations in Streamlit
-            st.altair_chart(combined, use_container_width=True)
+            #st.altair_chart(combined, use_container_width=True)
             # fig = px.imshow(correlation_matrix, text_auto=True, aspect="auto", color_continuous_scale='Viridis')
             # st.plotly_chart(fig)
 
